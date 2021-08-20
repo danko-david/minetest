@@ -118,7 +118,16 @@ FileLogOutput file_log_output;
 
 static OptionList allowed_options;
 
+#ifdef BUILD_LIBRARY
+
+extern "C"{
+int mt_shared_main(int argc, char *argv[]);
+}
+
+int mt_shared_main(int argc, char *argv[])
+#else
 int main(int argc, char *argv[])
+#endif
 {
 	int retval;
 	debug_set_exception_handler();

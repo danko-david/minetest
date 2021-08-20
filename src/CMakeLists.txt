@@ -527,10 +527,16 @@ endif()
 
 
 set(EXECUTABLE_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
+set(LIBRARY_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/bin")
 
 
 if(BUILD_CLIENT)
-	add_executable(${PROJECT_NAME} ${client_SRCS} ${extra_windows_SRCS})
+	if(BUILD_LIBRARY)
+		set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+		add_library(${PROJECT_NAME} SHARED ${client_SRCS} ${extra_windows_SRCS})
+	else()
+		add_executable(${PROJECT_NAME} ${client_SRCS} ${extra_windows_SRCS})
+	endif()
 	add_dependencies(${PROJECT_NAME} GenerateVersion)
 	target_link_libraries(
 		${PROJECT_NAME}
@@ -614,7 +620,12 @@ endif(BUILD_CLIENT)
 
 
 if(BUILD_SERVER)
-	add_executable(${PROJECT_NAME}server ${server_SRCS} ${extra_windows_SRCS})
+	if(BUILD_LIBRARY)
+		set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+		add_library(${PROJECT_NAME}server SHARED ${server_SRCS} ${extra_windows_SRCS})
+	else()
+		add_executable(${PROJECT_NAME}server ${server_SRCS} ${extra_windows_SRCS})
+	endif()
 	add_dependencies(${PROJECT_NAME}server GenerateVersion)
 	target_link_libraries(
 		${PROJECT_NAME}server

@@ -208,6 +208,8 @@ Run it:
 - You can build a bare server by specifying `-DBUILD_SERVER=TRUE`.
 - You can disable the client build by specifying `-DBUILD_CLIENT=FALSE`.
 - You can select between Release and Debug build by `-DCMAKE_BUILD_TYPE=<Debug or Release>`.
+- You can build minetest as a library by `-DSHARED_LIBRARY=TRUE`.
+  - In this case you might also want to use build bare server option.
   - Debug build is slower, but gives much more useful output in a debugger.
 - If you build a bare server you don't need to have Irrlicht installed.
   - In that case use `-DIRRLICHT_SOURCE_DIR=/the/irrlicht/source`.
